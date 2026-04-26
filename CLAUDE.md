@@ -40,6 +40,7 @@ Role definitions live in `roles/`. Each role defines:
 | Design | Head of Design, UI Designer, UX Designer | `roles/design/` |
 | Security | Head of Security, Security Auditor, Pen Tester | `roles/security/` |
 | Data | Head of Data, Data Analyst, Data Engineer | `roles/data/` |
+| Marketing | Head of Marketing, Growth Marketer | `roles/marketing/` |
 
 ### Activation — roles are first-class participants, not reference docs
 

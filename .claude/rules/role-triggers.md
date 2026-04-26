@@ -1,6 +1,6 @@
 # Role Triggers — When to Activate Which Role
 
-ApexYard ships **19 role definitions** in `roles/{department}/`. They are not all loaded into every session (context efficiency — 19 files × ~120 lines averages out to ~22k tokens, most of which are idle during any given task). Instead, a role is **activated** when a specific condition is met: you read the role file, adopt its identity, responsibilities, and constraints for the duration of the task, then hand off to the next role in the chain.
+ApexYard ships **21 role definitions** in `roles/{department}/`. They are not all loaded into every session (context efficiency — 21 files × ~120 lines averages out to ~25k tokens, most of which are idle during any given task). Instead, a role is **activated** when a specific condition is met: you read the role file, adopt its identity, responsibilities, and constraints for the duration of the task, then hand off to the next role in the chain.
 
 ## Activation Table
 
@@ -25,6 +25,8 @@ ApexYard ships **19 role definitions** in `roles/{department}/`. They are not al
 | **Head of Data** | `roles/data/head-of-data.md` | Analytics strategy · data governance · reporting architecture · cross-project data modelling |
 | **Data Analyst** | `roles/data/data-analyst.md` | SQL queries · dashboards · A/B-test analysis · metric investigation |
 | **Data Engineer** | `roles/data/data-engineer.md` | ETL pipelines · data modelling · data-quality work · warehouse schema changes |
+| **Head of Marketing** | `roles/marketing/head-of-marketing.md` | Brand positioning · channel strategy · go-to-market plan · marketing budget · cross-project messaging alignment |
+| **Growth Marketer** | `roles/marketing/growth-marketer.md` | **Conversion review of a website / landing page / paid CTA / funnel** · copy critique · A/B-test proposal · pre-launch readiness check on marketing-facing pages · funnel drop-off investigation |
 
 ## Activation Protocol
 
@@ -61,6 +63,9 @@ Each handoff is explicit. The handing-off role delivers the artefact defined in 
 | Roadmap question or prioritization call | Head of Product |
 | User flow / wireframe / IA question | UX Designer |
 | Component spec / design tokens question | UI Designer |
+| PR diff touches a marketing-facing page (homepage hero, pricing, signup, landing pages, paid CTAs, FAQ blocks visible to acquisition traffic) | Growth Marketer |
+| Funnel drop-off > 20% week-over-week reported | Growth Marketer |
+| Brand positioning, channel-mix, or go-to-market question | Head of Marketing |
 | Cross-project strategy question | The relevant Head of _ role |
 
 **Prompted activation** — the user explicitly asks for a role:
@@ -69,6 +74,8 @@ Each handoff is explicit. The handing-off role delivers the artefact defined in 
 "Act as the QA Engineer and verify ticket #42"
 "Put on your Tech Lead hat and review this PR"
 "As the Security Auditor, check this PR for OWASP issues"
+"Act as the Growth Marketer and audit the homepage for conversion"
+"Put on your Head of Marketing hat — should we change positioning for the Arabic audience?"
 ```
 
 Both forms result in the role file being read and the role being embodied for the task.
@@ -99,9 +106,12 @@ Roles deliver concrete artefacts at each handoff point. These are the contracts 
 | Security Auditor → Tech Lead | Security findings + required fixes |
 | QA Engineer → Product Manager | AC verification sign-off |
 | Platform Engineer → SRE | Production deployment + runbook |
+| Head of Marketing → Growth Marketer | Quarterly priorities + surfaces to review + growth targets |
+| Growth Marketer → UI Designer / Frontend Engineer / Product Manager | Conversion-review report (severity-ranked findings, copy rewrites, A/B-test specs) |
+| Growth Marketer → Head of Marketing | Findings rollup + experiment results |
 
 ## Aspirational → Real
 
-Before this rule existed, the 19 role files were passive markdown docs — no trigger, no activation, no automatic reference from workflows or skills. A user had to manually say *"please read `roles/engineering/qa-engineer.md` and act as the QA Engineer"* for anything to happen.
+Before this rule existed, the role files were passive markdown docs — no trigger, no activation, no automatic reference from workflows or skills. A user had to manually say *"please read `roles/engineering/qa-engineer.md` and act as the QA Engineer"* for anything to happen.
 
 This file closes that gap. When in a Claude Code session under apexyard, the trigger table drives which role activates, and the workflow and skill files now explicitly reference the role files at every phase boundary. Roles are now **first-class participants** in the SDLC, not reference material.
